@@ -1,11 +1,11 @@
 amcl:
   ros__parameters:
     use_sim_time: True
-    alpha1: 0.0005   ## alpha's are related to odom model tuning, refer Nav2 Docs
-    alpha2: 0.0005
-    alpha3: 0.0005
-    alpha4: 0.0005
-    alpha5: 0.0005
+    alpha1: 0.005   ## alpha's are related to odom model tuning, refer Nav2 Docs
+    alpha2: 0.005
+    alpha3: 0.005
+    alpha4: 0.005
+    alpha5: 0.005
     base_frame_id: "base_footprint" #
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
@@ -18,11 +18,11 @@ amcl:
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
     max_beams: 60
-    max_particles: 3000
-    min_particles: 800
+    max_particles: 5000
+    min_particles: 900
     odom_frame_id: "odom"
     pf_err: 0.05
-    pf_z: 0.99
+    pf_z: 0.999
     recovery_alpha_fast: 0.0
     recovery_alpha_slow: 0.0
     resample_interval: 1
@@ -33,10 +33,10 @@ amcl:
     transform_tolerance: 1.0
     update_min_a: 0.02
     update_min_d: 0.1
-    z_hit: 0.9
-    z_max: 0.1
+    z_hit: 2.0
+    z_max: 0.05
     z_rand: 0.5
-    z_short: 0.05
+    z_short: 0.1
     scan_topic: scan
     map_topic: map
     set_initial_pose: True
@@ -131,27 +131,27 @@ controller_server:
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.20
-      yaw_goal_tolerance: 0.05
+      xy_goal_tolerance: 0.3
+      yaw_goal_tolerance: 0.3
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: True
       min_vel_x: 0.0
       min_vel_y: 0.0
-      max_vel_x: 0.26
+      max_vel_x: 0.5
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 2.0
       min_speed_xy: 0.0
-      max_speed_xy: 0.26
+      max_speed_xy: 0.5
       min_speed_theta: 0.0
 
       acc_lim_x: 2.5
       acc_lim_y: 0.0
-      acc_lim_theta: 3.2
-      decel_lim_x: -2.5
+      acc_lim_theta: 3.8
+      decel_lim_x: -3.5
       decel_lim_y: 0.0
-      decel_lim_theta: -3.2
+      decel_lim_theta: -3.8
 
       vx_samples: 20
       vy_samples: 5
@@ -161,7 +161,7 @@ controller_server:
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.20
+      xy_goal_tolerance: 0.06
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True
@@ -341,13 +341,13 @@ waypoint_follower:
 
 velocity_smoother:
   ros__parameters:
-    smoothing_frequency: 20.0
+    smoothing_frequency: 40.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [1.6, 0.0, 2.0]
-    min_velocity: [-1.6, 0.0, -2.0]
-    max_accel: [1.5, 0.0, 6.2]
-    max_decel: [-1.5, 0.0, -6.2]
+    max_velocity: [2.0, 0.0, 3.7]
+    min_velocity: [-2.5, 0.0, -4.0]
+    max_accel: [2.5, 0.0, 10.0]
+    max_decel: [-2.0, 0.0, -11.0]
     odom_topic: "/odometry/filtered"
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
